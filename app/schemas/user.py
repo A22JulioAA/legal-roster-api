@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class UserBase(BaseModel):
-    id: int
     username: str
     email: str
     is_active: bool
