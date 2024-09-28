@@ -21,11 +21,15 @@ app = FastAPI(
 
 @app.get(
         '/',
-        summary='Base endpoint',
-        description='Returns a simple message',
-        tags=['Base'],
+        summary='Check the API Database',
+        description='Returns the status of the database',
+        tags=['Check'],
 )
-def read_root():
+def check_database():
+    """
+    Check the database status
+    FIXME: This should be removed in production
+    """
     return check_db()
 
 if __name__ == '__main__':
