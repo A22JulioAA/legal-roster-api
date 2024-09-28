@@ -4,6 +4,8 @@ import uvicorn
 from version import __version__
 from config.database import get_db, check_db
 
+from routers.offers import offers_router
+
 app = FastAPI(
     title='Legal Roster API',
     description='API for Legal Roster',
@@ -31,6 +33,8 @@ def check_database():
     FIXME: This should be removed in production
     """
     return check_db()
+
+app.include_router(offers_router)
 
 if __name__ == '__main__':
     uvicorn.run(app='run:app', host='0.0.0.0', port=8999, reload=True)

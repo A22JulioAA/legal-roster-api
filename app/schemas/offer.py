@@ -2,6 +2,8 @@
 
 from pydantic import BaseModel
 
+from datetime import datetime
+
 class OfferBase(BaseModel):
     title: str
     description: str
@@ -20,4 +22,5 @@ class OfferInDB(OfferBase):
     pass
 
 class OfferResponse(OfferBase):
-    pass
+    id: int
+    professional_id: int
