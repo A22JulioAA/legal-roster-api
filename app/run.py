@@ -7,6 +7,7 @@ from config.database import get_db, check_db, engine, Base
 from models.specialty import Specialty
 
 from routers.offers import offers_router
+from routers.specialties import specialties_router
 
 app = FastAPI(
     title='Legal Roster API',
@@ -37,6 +38,7 @@ def check_database():
     return check_db()
 
 app.include_router(offers_router)
+app.include_router(specialties_router)
 
 if __name__ == '__main__':
     Base.metadata.create_all(bind=engine)
