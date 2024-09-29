@@ -17,5 +17,11 @@ class SpecialtyInDB(SpecialtyBase):
     created_at: datetime
     updated_at: datetime
 
+    class Config:
+        orm_mode = True
+
 class SpecialtyResponse(SpecialtyBase):
     id: int
+
+    class Config:
+        from_attributes = True

@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 
 from config.database import get_db
 
-from schemas.specialty import SpecialtyResponse
+from schemas.specialty import SpecialtyResponse, SpecialtyCreate
 
-from CRUD.specialtyCRUD import fn_get_specialties, fn_get_specialty
+from CRUD.specialtyCRUD import fn_get_specialties, fn_get_specialty, fn_create_specialty
 
 specialties_router = APIRouter(
     prefix='/specialties',
@@ -69,3 +69,32 @@ def get_specialty(specialty_id: int, db: Session = Depends(get_db)) -> Specialty
     """
     specialty = fn_get_specialty(db, specialty_id)
     return specialty
+
+@specialties_router.post(
+    '/',
+    summary='Create Specialty',
+    description='Create a new specialty',
+    response_description='Specialty',
+    response_model=SpecialtyResponse,
+    responses={
+        201: {
+            'description': 'Specialty created',
+            'model': SpecialtyResponse,
+        },
+        422: {
+            'description': 'Unprocessable Entity',
+        },
+        500: {
+            'description': 'Internal Server Error',
+        },
+    },
+)
+def create_specialty(specialty: SpecialtyCreate, db: Session = Depends(get_db)) -> SpecialtyResponse:
+    """
+    Create a new specialty
+
+    Returns:
+        SpecialtyResponse
+    """
+    new_specialty = fn_create_specialty(db, specialty)
+    return new_specialty
