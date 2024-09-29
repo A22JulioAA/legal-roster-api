@@ -2,7 +2,9 @@ from fastapi import FastAPI
 import uvicorn
 
 from version import __version__
-from config.database import get_db, check_db
+from config.database import get_db, check_db, engine, Base
+
+from models.specialty import Specialty
 
 from routers.offers import offers_router
 
@@ -37,4 +39,5 @@ def check_database():
 app.include_router(offers_router)
 
 if __name__ == '__main__':
+    Base.metadata.create_all(bind=engine)
     uvicorn.run(app='run:app', host='0.0.0.0', port=8999, reload=True)
